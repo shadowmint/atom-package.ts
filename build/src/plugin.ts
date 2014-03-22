@@ -1,6 +1,37 @@
 declare var atom;
-declare var $;
 module ts {
+
+    /* Atom helpers */
+    module Atom {
+        export interface Atomic {
+            $:any;
+            $$:any;
+            $$$:any;
+            BufferedNodeProcess:any;
+            BufferedProcess:any;
+            EditorView:any;
+            Git:any;
+            Point:any;
+            Range:any;
+            ScrollView:any;
+            SelectListView:any;
+            Task:any;
+            View:any;
+            Workspace:any;
+            WorkspaceView:any;
+        }
+
+        var _atomic:Atomic = null;
+
+        /* Get access to the atom API */
+        export function get() {
+            if (_atomic == null) {
+                var helper = window['require'];
+                _atomic = helper('atom');
+            }
+            return _atomic;
+        }
+    }
 
     /* Basic console log function */
     export function prefix() {
@@ -9,20 +40,26 @@ module ts {
 
     /* Inject an arbitrary dom node */
     export function break_dom() {
-        var cat = document.createElement('img');
-        cat.src = 'http://placekitten.com/200/300';
-        cat.className = "ts cat";
+        var $ = Atom.get().$;
+        var $cat = $('<img/>');
+        $cat.attr('src', 'http://placekitten.com/150/150');
+        $cat.addClass('ts');
+        $cat.addClass('cat');
         var workspace = atom.workspaceView.length ? atom.workspaceView[0] : null;
         if (workspace) {
-            workspace.appendChild(cat);
+            $(workspace).append($cat);
         }
     }
 
     /* Bind event handlers */
     export function log_keys() {
         document.addEventListener('keydown', (e) => {
-           console.log(e);
+            console.log(e);
         });
+    }
+
+    /* Create a 'view' container */
+    export function create_view() {
     }
 }
 
@@ -37,5 +74,6 @@ export function activate(state) {
     atom.workspaceView.command('ts:Hello', ts.prefix);
     atom.workspaceView.command('ts:BreakDom', ts.break_dom);
     atom.workspaceView.command('ts:LogKeys', ts.log_keys);
+    atom.workspaceView.command('ts:View', ts.create_view);
     return true;
 }
