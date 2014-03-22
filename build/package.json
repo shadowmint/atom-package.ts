@@ -8,11 +8,15 @@
   "devDependencies": {
     "typescript": "~0.9.7",
     "grunt-ts": "~1.6.4",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-sass": "~0.7.3"
   },
   "dependencies": {
     "grunt-contrib-copy": "~0.5.0"
+  },
+  "scripts": {
+    "quickstart": "npm install && grunt"
   }
 }

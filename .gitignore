@@ -3,3 +3,9 @@ npm-debug.log
 node_modules
 tscommand.tmp.txt
 bin
+build/src/*.js
+build/src/*.js.map
+build/src/*.d.ts
+build/styles/*.css
+.idea
+.sass-cache

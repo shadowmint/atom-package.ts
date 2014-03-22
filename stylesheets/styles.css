@@ -1,0 +1,9 @@
+.ts.cat {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  border: 2px solid #efefef;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+}

@@ -2,6 +2,8 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-ts');
 
     grunt.initConfig({
@@ -17,7 +19,8 @@ module.exports = function (grunt) {
                 out: 'bin/ts.js',
                 options: {
                     target: 'es3',
-                    sourceMaps: false,
+                    module: 'commonjs',
+                    sourceMaps: true,
                     declaration: true,
                     removeComments: false
                 }
@@ -26,11 +29,24 @@ module.exports = function (grunt) {
         copy: {
             lib: {
                 files: [
-                    {expand: true, src: ['bin/*.js'], dest: '../lib/', filter: 'isFile'},
+                    { expand: true, flatten: true, src: ['src/*.js'], dest: '../lib/', filter: 'isFile' },
+                    { expand: true, flatten: true, src: ['styles/*.css'], dest: '../stylesheets/', filter: 'isFile' }
                 ]
+            }
+        },
+        sass: {
+            lib: {
+                options: { style: 'expanded' },
+                files: { 'styles/styles.css': 'styles/styles.scss' }
+            }
+        },
+        watch: {
+            lib: {
+                files: ['src/**/*.ts', '!src/**/*.d.ts'],
+                tasks: ['default']
             }
         }
     });
 
-    grunt.registerTask('default', ['clean', 'ts:lib', 'copy:lib']);
+    grunt.registerTask('default', ['clean', 'ts:lib', 'sass:lib', 'copy:lib']);
 }
