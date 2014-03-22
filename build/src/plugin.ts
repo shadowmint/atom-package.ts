@@ -58,8 +58,24 @@ module ts {
         });
     }
 
+    /* Execute an external process */
+    export function execute_process() {
+        var process = Atom.get().BufferedProcess;
+        var args = {
+          command: '/bin/ls',
+          options: {},
+          args: [],
+          stdout: (l) => { console.log("ls: " + l); },
+          stderr: (l) => { console.log("ls: " + l); },
+          exit: (code) => { console.log("Task completed:" + code); }
+        };
+        var runner = new process(args);
+        console.log(runner);
+    }
+
     /* Create a 'view' container */
     export function create_view() {
+        // ????
     }
 }
 
@@ -74,6 +90,7 @@ export function activate(state) {
     atom.workspaceView.command('ts:Hello', ts.prefix);
     atom.workspaceView.command('ts:BreakDom', ts.break_dom);
     atom.workspaceView.command('ts:LogKeys', ts.log_keys);
+    atom.workspaceView.command('ts:Process', ts.execute_process);
     atom.workspaceView.command('ts:View', ts.create_view);
     return true;
 }
