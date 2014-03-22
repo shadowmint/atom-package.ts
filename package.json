@@ -1,0 +1,14 @@
+{
+  "name": "ts",
+  "main": "./lib/ts.js",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationEvents": ["ts:Hello"],
+  "repository": "https://github.com/atom/my-package",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}
